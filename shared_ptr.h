@@ -20,10 +20,10 @@ struct shared_ptr {
             : shared_ptr(p, std::default_delete<U>()) {}
 
     template<class U, class D>
-    shared_ptr(U *p, D& d)
+    shared_ptr(U *p, D d)
             : Tpoint(p) {
         try {
-            control = new deleter_c_block<U, D>(p, d);
+            control = new deleter_c_block<U, D>(p, std::move(d));
         } catch (...) {
             d(p);
             throw;

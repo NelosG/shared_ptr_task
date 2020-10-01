@@ -16,7 +16,7 @@ struct deleter_c_block : control_block, D {
 
     T *ptr;
 
-    deleter_c_block(T *p, D& d) : ptr(p), D(d) {}
+    deleter_c_block(T *p, D d) : ptr(p), D(std::move(d)) {}
 
     void delete_object() override {
         static_cast<D &>(*this)(ptr);

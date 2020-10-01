@@ -29,11 +29,11 @@ bool operator==(std::nullptr_t, const shared_ptr<T> &r) noexcept {
 }
 
 template<class T>
-bool operator!=(const shared_ptr<T> &l, std::nullptr_t) noexcept {
-    return !!l;
+bool operator!=(const shared_ptr<T> &l, std::nullptr_t t) noexcept {
+    return !(l == t);
 }
 
 template<class T>
-bool operator!=(std::nullptr_t, const shared_ptr<T> &r) noexcept {
-    return !!r;
+bool operator!=(std::nullptr_t t, const shared_ptr<T> &r) noexcept {
+    return !(t == r);
 }
