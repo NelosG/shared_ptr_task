@@ -33,15 +33,17 @@ struct shared_ptr {
 
     shared_ptr(const shared_ptr &r) noexcept
             : control(r.control), Tpoint(r.Tpoint) {
-        if (control != nullptr)
+        if (control != nullptr) {
             control->counter++;
+        }
     }
 
     template<class U>
     shared_ptr(const shared_ptr<U> &r) noexcept
             : control(r.control), Tpoint(r.Tpoint) {
-        if (control != nullptr)
+        if (control != nullptr) {
             control->counter++;
+        }
     }
 
     shared_ptr(shared_ptr &&r) noexcept
@@ -52,15 +54,17 @@ struct shared_ptr {
     template<class U>
     shared_ptr(const shared_ptr<U> &r, T *p) noexcept
             : control(r.control), Tpoint(p) {
-        if (control != nullptr)
+        if (control != nullptr) {
             control->counter++;
+        }
     }
 
     template<class U>
     explicit shared_ptr(const weak_ptr<U> &r)
             : control(r.control), Tpoint(r.Tpoint) {
-        if (control != nullptr && control->counter != 0)
+        if (control != nullptr && control->counter != 0) {
             control->counter++;
+        }
     }
 
     void reset() noexcept {
@@ -156,10 +160,13 @@ private:
     }
 
     friend class weak_ptr<T>;
+
     template <typename U>
     friend class weak_ptr;
+
     template <typename U>
     friend class shared_ptr;
+
     template<class T, class... Args>
     friend shared_ptr<T> make_shared(Args &&... args);
 

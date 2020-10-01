@@ -7,6 +7,7 @@ struct control_block {
     size_t weak_counter = 0;
 
     virtual void delete_object() = 0;
+
     virtual ~control_block() = default;
 };
 
@@ -35,7 +36,7 @@ struct smart_c_block : control_block {
     }
 
     void delete_object() override {
-        reinterpret_cast<T *>(&data)->~T();
+        get()->~T();
     }
 
     T *get() {

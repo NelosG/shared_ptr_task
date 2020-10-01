@@ -13,8 +13,9 @@ struct weak_ptr {
 
     weak_ptr(const weak_ptr &r) noexcept
             : control(r.control), Tpoint(r.Tpoint) {
-        if (control != nullptr)
+        if (control != nullptr) {
             control->weak_counter++;
+        }
     }
 
     weak_ptr(weak_ptr &&r) noexcept
@@ -25,28 +26,29 @@ struct weak_ptr {
     template<class U>
     weak_ptr(const weak_ptr<U> &r) noexcept
             : control(r.control), Tpoint(r.Tpoint) {
-        if (control != nullptr)
+        if (control != nullptr) {
             control->weak_counter++;
+        }
     }
 
     template<class U>
     weak_ptr(const shared_ptr<U> &r) noexcept
             : control(r.control), Tpoint(r.Tpoint) {
-        if (control != nullptr)
+        if (control != nullptr) {
             control->weak_counter++;
+        }
     }
 
-
     shared_ptr<T> lock() const noexcept {
-        if (control != nullptr && control->counter != 0)
+        if (control != nullptr && control->counter != 0) {
             return shared_ptr<T>(*this);
+        }
         return shared_ptr<T>();
     }
 
     ~weak_ptr() {
         release();
     }
-
 
     weak_ptr &operator=(const weak_ptr &r) noexcept {
         weak_ptr temp(r);
@@ -80,6 +82,7 @@ struct weak_ptr {
         swap(temp);
         return *this;
     }
+
     T *operator->() const noexcept {
         return Tpoint;
     }
@@ -104,8 +107,10 @@ private:
     }
 
     friend class shared_ptr<T>;
+
     template <typename U>
     friend class shared_ptr;
+
     template <typename U>
     friend class weak_ptr;
 
