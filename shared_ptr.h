@@ -167,8 +167,8 @@ private:
     template <typename U>
     friend class shared_ptr;
 
-    template<class T, class... Args>
-    friend shared_ptr<T> make_shared(Args &&... args);
+    template<class U, class... Args>
+    friend shared_ptr<U> make_shared(Args &&... args);
 
     control_block *control;
     T *Tpoint;
